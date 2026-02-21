@@ -1,7 +1,10 @@
 from simulations.kinematics import constant_velocity
 from simulations.kinematics import constant_acceleration
+from simulations.projectile import projectile_no_drag
 from visualization.plotting import plot_motion_constant_velocity
 from visualization.plotting import plot_motion_constant_acceleration
+from visualization.plotting import plot_projectile_no_drag
+import math
 import numpy as np
 
 def run_constant_acceleration():
@@ -23,6 +26,16 @@ def run_constant_velocity():
     np.full_like(t,v)
     plot_motion_constant_velocity(t, x)
 
+def run_projectile_no_drag():
+    pos = np.array([0,0])
+    v0 = 35
+    theta =  math.degrees(60)
+    a = np.array([0, -9.8])
+    t = 0
+    dt = 0.01
+    T, x, y, vx, vy = projectile_no_drag(pos, theta, v0, a, t, dt)
+    plot_projectile_no_drag(T, x, y, vx, vy)
+
         
 
 def run_all():
@@ -30,6 +43,8 @@ def run_all():
     run_constant_velocity()
     print("\nrunning constant acceleration")
     run_constant_acceleration()
+    print("\nRunning projectile motion")
+    run_projectile_no_drag()
 
 
 
@@ -37,15 +52,18 @@ if __name__ == "__main__":
     print("Which simulation would you like to run?")
     print("1 : Constant velocity")
     print("2 : Constant acceleration")
-    print("3 : Both")
+    print("3 : Projectile with no drag")
+    print("4 : All")
 
-    choice = input("Enter choice 1/2/3 :")
+    choice = input("Enter choice 1/2/3/4 :")
 
     if choice == "1":
         run_constant_velocity()
     elif choice == "2":
         run_constant_acceleration()
-    elif choice == "3" :
+    elif choice == "3":
+        run_projectile_no_drag()
+    elif choice == "4" :
         run_all()
     else :
         print("Invalid choice")
