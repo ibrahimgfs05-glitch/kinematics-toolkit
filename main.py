@@ -5,6 +5,7 @@ from visualization.plotting import plot_motion_constant_velocity
 from visualization.plotting import plot_motion_constant_acceleration
 from visualization.plotting import plot_projectile
 from Configs.projectile_configs import no_drag_params
+from Configs.projectile_configs import drag_params
 import math
 import numpy as np
 
@@ -28,28 +29,15 @@ def run_constant_velocity():
     plot_motion_constant_velocity(t, x)
 
 def run_projectile_no_drag():
-    parameters = no_drag_params(35, 60)     #no_drag_params(v0, theta, pos(if none : (0,0)))
-    T, x, y, vx, vy = projectile(parameters)
-    plot_projectile(T, x, y, vx, vy)
+    parameters = no_drag_params("no_drag", 35, 60) #no_drag_params(name, v0, theta, initial_pos(if none(0,0)))
+    T, x, y, vx, vy, name = projectile(parameters)
+    plot_projectile(T, x, y, vx, vy, name)
 
 def run_projectile_drag():
     
-    params = {
-        "Cd" : 0.47,
-        "rho" : 1.225,
-        "A" : 0.5,
-        "pos" : np.array([0,0]),
-        "v0" :  35,
-        "theta" : math.degrees(45),
-        "g" : np.array([0, -9.8]),
-        "t" : 0,
-        "dt" : 0.01,
-        "name" : "no_drag",
-        "k" : 0.5*params.Cd*params.rho*params.A
-    }
-
-    T, x, y, vx, vy = projectile(params)
-    plot_projectile(T, x, y, vx, vy)
+    parameters = drag_params("drag", 35, 60, 0.47, 1.225, 0.5) #no_drag_params(name, v0, theta, Cd, rho, A, initial_pos(if none(0,0)))
+    T, x, y, vx, vy, name = projectile(parameters)
+    plot_projectile(T, x, y, vx, vy, name)
 
 
 
@@ -63,6 +51,7 @@ def run_all():
     print("\nRunning projectile motion with no drag")
     run_projectile_no_drag()
     print("\nRunning projectile motion with drag")
+    run_projectile_drag()
 
 
 
@@ -71,9 +60,10 @@ if __name__ == "__main__":
     print("1 : Constant velocity")
     print("2 : Constant acceleration")
     print("3 : Projectile with no drag")
-    print("4 : All")
+    print("4 : Projectile with drag")
+    print("5 : All")
 
-    choice = input("Enter choice 1/2/3/4 :")
+    choice = input("Enter choice 1/2/3/4/5 :")
 
     if choice == "1":
         run_constant_velocity()
@@ -81,7 +71,9 @@ if __name__ == "__main__":
         run_constant_acceleration()
     elif choice == "3":
         run_projectile_no_drag()
-    elif choice == "4" :
+    elif choice == "4":
+        run_projectile_drag()
+    elif choice == "5" :
         run_all()
     else :
         print("Invalid choice")

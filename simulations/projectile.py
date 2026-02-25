@@ -1,8 +1,11 @@
 import numpy as np
 import math
 
+
 def projectile(parameters):
-    
+
+    pos = parameters.pos.copy()
+    t = parameters.t
     v = np.array([parameters.v0*math.cos(parameters.theta), parameters.v0*math.sin(parameters.theta)])
     speed = np.linalg.norm(v)
     T = []
@@ -10,28 +13,29 @@ def projectile(parameters):
     y = []
     vx = []
     vy = []
-    
-    while True:
 
-        if parameters.name == "drag": 
-            t = parameters.t + parameters.dt
-            a = parameters.g - 0.5*parameters.Cd*parameters.rho*parameters.A*v*speed
-            v = v + a*parameters.dt
-            pos = parameters.pos + v*parameters.dt
-            speed = np.linalg.norm(v)
+    def name():
+        return parameters.name
+    name = name()
 
-        elif parameters.name == "no_drag":
-            t = parameters.t + parameters.dt  
-            pos = parameters.pos + v*parameters.dt
-            v = v + parameters.g*parameters.dt
-        
+    while pos[1] >= 0:
+
         T.append(t)
         x.append(pos[0])
         y.append(pos[1])
         vx.append(v[0])
         vy.append(v[1])
 
-        if pos[1] == 0:
-            break
+        if name == "drag": 
+            t = t + parameters.dt
+            a = parameters.g - 0.5*parameters.Cd*parameters.rho*parameters.A*v*speed
+            v = v + a*parameters.dt
+            pos = pos + v*parameters.dt
+            speed = np.linalg.norm(v)
+
+        elif name == "no_drag":
+            t = t + parameters.dt  
+            pos = pos + v*parameters.dt
+            v = v + parameters.g*parameters.dt
         
-    return T, x, y, vx, vy
+    return T, x, y, vx, vy, name

@@ -27,23 +27,24 @@ def plot_motion_constant_acceleration(t, x, v):
     plt.tight_layout()
     plt.show()
 
-def plot_projectile(T, x, y, vx, vy):
+def plot_projectile(T, x, y, vx, vy, name):
+    
     plt.subplot(2, 3, 1)
     plt.plot(T, x, "g")
     plt.title("Time V X-pos")
     plt.xlabel("Time [s]")
     plt.ylabel("X-pos [m]")
     plt.grid(True)
-    
+
     plt.subplot(2, 3, 2)
     plt.plot(T, y, "r")
     plt.title("Time V Y-pos")
     plt.xlabel("Time [s]")
     plt.ylabel("Y-pos [m]")
     plt.grid(True)
-
+    
     plt.subplot(2, 3, 3)
-    plt.plot(x, y, "b")
+    plt.plot(x, y, "pink")
     plt.title("X-pos V Y-pos")
     plt.xlabel("X-Pos")
     plt.ylabel("Y-pos")
@@ -63,7 +64,10 @@ def plot_projectile(T, x, y, vx, vy):
     plt.ylabel("Vel [ms^-1]")
     plt.grid(True)
 
+    if name == "drag":
+        plt.suptitle("Projectile with drag")
+    elif name == "no_drag":
+        plt.suptitle("Projectile with no drag")
 
-    plt.suptitle("Projectile motion")
     plt.tight_layout()
     plt.show()
