@@ -1,9 +1,10 @@
 from simulations.kinematics import constant_velocity
 from simulations.kinematics import constant_acceleration
-from simulations.projectile import projectile_no_drag
+from simulations.projectile import projectile
 from visualization.plotting import plot_motion_constant_velocity
 from visualization.plotting import plot_motion_constant_acceleration
-from visualization.plotting import plot_projectile_no_drag
+from visualization.plotting import plot_projectile
+from Configs.projectile_configs import no_drag_params
 import math
 import numpy as np
 
@@ -27,14 +28,30 @@ def run_constant_velocity():
     plot_motion_constant_velocity(t, x)
 
 def run_projectile_no_drag():
-    pos = np.array([0,0])
-    v0 = 35
-    theta =  math.degrees(60)
-    a = np.array([0, -9.8])
-    t = 0
-    dt = 0.01
-    T, x, y, vx, vy = projectile_no_drag(pos, theta, v0, a, t, dt)
-    plot_projectile_no_drag(T, x, y, vx, vy)
+    parameters = no_drag_params(35, 60)     #no_drag_params(v0, theta, pos(if none : (0,0)))
+    T, x, y, vx, vy = projectile(parameters)
+    plot_projectile(T, x, y, vx, vy)
+
+def run_projectile_drag():
+    
+    params = {
+        "Cd" : 0.47,
+        "rho" : 1.225,
+        "A" : 0.5,
+        "pos" : np.array([0,0]),
+        "v0" :  35,
+        "theta" : math.degrees(45),
+        "g" : np.array([0, -9.8]),
+        "t" : 0,
+        "dt" : 0.01,
+        "name" : "no_drag",
+        "k" : 0.5*params.Cd*params.rho*params.A
+    }
+
+    T, x, y, vx, vy = projectile(params)
+    plot_projectile(T, x, y, vx, vy)
+
+
 
         
 
@@ -43,8 +60,9 @@ def run_all():
     run_constant_velocity()
     print("\nrunning constant acceleration")
     run_constant_acceleration()
-    print("\nRunning projectile motion")
+    print("\nRunning projectile motion with no drag")
     run_projectile_no_drag()
+    print("\nRunning projectile motion with drag")
 
 
 

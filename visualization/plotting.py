@@ -27,7 +27,7 @@ def plot_motion_constant_acceleration(t, x, v):
     plt.tight_layout()
     plt.show()
 
-def plot_projectile_no_drag(T, x, y, vx, vy):
+def plot_projectile(T, x, y, vx, vy):
     plt.subplot(2, 3, 1)
     plt.plot(T, x, "g")
     plt.title("Time V X-pos")
