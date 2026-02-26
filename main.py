@@ -6,6 +6,7 @@ from visualization.plotting import plot_motion_constant_acceleration
 from visualization.plotting import plot_projectile
 from Configs.projectile_configs import no_drag_params
 from Configs.projectile_configs import drag_params
+from Configs.kinematics_configs import constant_velocity
 import math
 import numpy as np
 
@@ -20,12 +21,8 @@ def run_constant_acceleration():
 
 
 def run_constant_velocity():
-    x0 = 0
-    t_max = 115
-    dt = 0.01
-    v = 3.5
-    t, x = constant_velocity(x0 , v, t_max, dt)
-    np.full_like(t,v)
+    parameters = constant_velocity(0, 35, 0, 15, 1) #constant_velocity(x0, v0, t, t_max, dt)
+    t, x = constant_velocity(parameters)
     plot_motion_constant_velocity(t, x)
 
 def run_projectile_no_drag():
