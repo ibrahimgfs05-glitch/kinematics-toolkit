@@ -4,15 +4,36 @@ def constant_velocity(parameters):
     t = parameters.t
     x = parameters.x0
 
-    while t <= parameters.t_max:
-        t = np.arange(parameters.t , parameters.t_max, parameters.dt)
-        x = x + parameters.v0*parameters.dt
+    T = []
+    X = []
 
-    return t, x
+    while t <= parameters.t_max:
+        T.append(t)
+        X.append(x)
+
+        t = t + parameters.dt
+        x = x + parameters.v0*parameters.dt
+        
+
+    return T, X
 
 def constant_acceleration(parameters):
-    t = np.arange(0, parameters.t_max, parameters.dt)
-    v = parameters.v + a*dt
-    x = x0 + v*dt
+    t = parameters.t
+    x = parameters.x0
+    v = parameters.v0
 
-    return t, x, v
+    T = []
+    X = []
+    V = []
+
+    while t <= parameters.t_max:
+        T.append(t)
+        V.append(v)
+        X.append(x)
+
+        t = t + parameters.dt
+        v = v + parameters.a*parameters.dt
+        x = x + v*parameters.dt
+   
+
+    return T, V, X

@@ -6,24 +6,19 @@ from visualization.plotting import plot_motion_constant_acceleration
 from visualization.plotting import plot_projectile
 from Configs.projectile_configs import no_drag_params
 from Configs.projectile_configs import drag_params
-from Configs.kinematics_configs import constant_velocity
-import math
-import numpy as np
+from Configs.kinematics_configs import constant_velocity_params
+from Configs.kinematics_configs import constant_acceleration_params
 
 def run_constant_acceleration():
-    x0 = 0
-    t_max = 10
-    dt = 0.01
-    v0 = 350
-    a = -9.8
-    t, x, v = constant_acceleration(x0, v0, t_max, dt, a)
-    plot_motion_constant_acceleration(t, x, v)
+    parameters = constant_acceleration_params(0, 35, 0, 15, 0.1, 25) # constant_acceleration_params(x0, v0, t, t_max, dt, a)
+    T, V, X = constant_acceleration(parameters)
+    plot_motion_constant_acceleration(T, V, X)
 
 
 def run_constant_velocity():
-    parameters = constant_velocity(0, 35, 0, 15, 1) #constant_velocity(x0, v0, t, t_max, dt)
-    t, x = constant_velocity(parameters)
-    plot_motion_constant_velocity(t, x)
+    parameters = constant_velocity_params(0, 35, 0, 15, 1) #constant_velocity(t, v0, x0, t_max, dt)
+    T, X = constant_velocity(parameters)
+    plot_motion_constant_velocity(T, X)
 
 def run_projectile_no_drag():
     parameters = no_drag_params("no_drag", 35, 60) #no_drag_params(name, v0, theta, initial_pos(if none(0,0)))
@@ -36,9 +31,6 @@ def run_projectile_drag():
     T, x, y, vx, vy, name = projectile(parameters)
     plot_projectile(T, x, y, vx, vy, name)
 
-
-
-        
 
 def run_all():
     print("running constant velocity")
