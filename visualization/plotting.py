@@ -27,42 +27,32 @@ def plot_motion_constant_acceleration(T, V, X):
     plt.tight_layout()
     plt.show()
 
-def plot_projectile(T, x, y, vx, vy, name):
-    
-    plt.subplot(2, 3, 1)
-    plt.plot(T, x, "g")
+def plot_projectile(results, name):
+
+    #results = [time, x points, y points]
+
+
+    plt.subplot(1, 3, 1)
+    plt.plot(results[0], results[1], "g")
     plt.title("Time V X-pos")
     plt.xlabel("Time [s]")
     plt.ylabel("X-pos [m]")
     plt.grid(True)
 
-    plt.subplot(2, 3, 2)
-    plt.plot(T, y, "r")
+    plt.subplot(1, 3, 2)
+    plt.plot(results[0], results[2],"b")
     plt.title("Time V Y-pos")
     plt.xlabel("Time [s]")
     plt.ylabel("Y-pos [m]")
     plt.grid(True)
     
-    plt.subplot(2, 3, 3)
-    plt.plot(x, y, "pink")
+    plt.subplot(1, 3, 3)
+    plt.plot(results[1], results[2], "r")
     plt.title("X-pos V Y-pos")
     plt.xlabel("X-Pos")
     plt.ylabel("Y-pos")
     plt.grid(True)
 
-    plt.subplot(2, 3, 4)
-    plt.plot(T, vy, "cyan")
-    plt.title("Time V Vertical Vel")
-    plt.xlabel("Time [s]")
-    plt.ylabel("Vel [ms^-1]")
-    plt.grid(True)
-
-    plt.subplot(2, 3, 5)
-    plt.plot(T, vx, "brown")
-    plt.title("Time vs Horizontal Vel")
-    plt.xlabel("Time [s]")
-    plt.ylabel("Vel [ms^-1]")
-    plt.grid(True)
 
     if name == "drag":
         plt.suptitle("Projectile with drag")

@@ -21,15 +21,15 @@ def run_constant_velocity():
     plot_motion_constant_velocity(T, X)
 
 def run_projectile_no_drag():
-    parameters = no_drag_params("no_drag", 35, 60) #no_drag_params(name, v0, theta, initial_pos(if none(0,0)))
-    T, x, y, vx, vy, name = projectile(parameters)
-    plot_projectile(T, x, y, vx, vy, name)
+    parameters = no_drag_params("no_drag", 35, "dynamic") #no_drag_params(name, v0, theta_type(dynamic or fixed), theta, initial_pos(if None = (0,0))))
+    results, name = projectile(parameters)
+    plot_projectile(results, name)
 
 def run_projectile_drag():
     
-    parameters = drag_params("drag", 35, 60, 0.47, 1.225, 0.5) #no_drag_params(name, v0, theta, Cd, rho, A, initial_pos(if none(0,0)))
-    T, x, y, vx, vy, name = projectile(parameters)
-    plot_projectile(T, x, y, vx, vy, name)
+    parameters = drag_params("drag", 35, "dynamic", 0.47, 1.225, 0.5) #no_drag_params(name, v0, theta_type(dynamic or fixed), Cd, rho, A, theta, initial_pos(if none(0,0)))
+    results, name = projectile(parameters)
+    plot_projectile(results, name)
 
 
 def run_all():
@@ -53,7 +53,6 @@ if __name__ == "__main__":
     print("5 : All")
 
     choice = input("Enter choice 1/2/3/4/5 :")
-
     if choice == "1":
         run_constant_velocity()
     elif choice == "2":
@@ -65,4 +64,4 @@ if __name__ == "__main__":
     elif choice == "5" :
         run_all()
     else :
-        print("Invalid choice")
+        print("Invalid choice. PLease choose again.")
