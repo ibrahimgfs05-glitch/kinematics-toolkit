@@ -4,8 +4,8 @@ import math
 
 
 def projectile(parameters):
-    #params(name, v0, theta_type(dynamic or fixed), theta, initial_pos(if None = (0,0)
-    results = [[] , [] , []]  #[time, x points, y points, vx, vy]
+    #parameters(name, v0, theta_type(dynamic or fixed), theta, initial_pos(if None = (0,0))
+    results = [[] , [] , []]  #[time, x points, y points]
 
     def name():
         return parameters.name
